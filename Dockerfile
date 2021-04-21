@@ -1,4 +1,4 @@
-# ocociddiagrammer DOCKERFILE
+# oci-harvester DOCKERFILE
 # ----------------------------
 # This Dockerfile creates a Docker image using Alpine, Nodejs, OCI npm packages and Terraform.
 #
