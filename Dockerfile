@@ -4,8 +4,8 @@
 #
 # HOW TO BUILD THIS IMAGE
 # -----------------------
-# docker build -f Dockerfile -t oci-harvester:latest .
-# docker push oci-harvester:latest
+# docker build -f Dockerfile -t joranlager/oci-harvester:latest .
+# docker push joranlager/oci-harvester:latest
 
 FROM alpine
 
@@ -30,7 +30,7 @@ RUN mkdir /terraform && \
     ln -s $(ls /terraform/terraform) /usr/local/bin/terraform && \
     ln -s $(ls /terraform/terraform-provider-oci*) /usr/local/bin/terraform-provider-oci
 
-COPY setup-oci.sh harvest.sh compartments.js compartments.sh terraform_header terraform_footer /oci-harvester/
+COPY setup-oci.sh harvest.sh compartments.js compartments.sh /oci-harvester/
 
 RUN chmod 755 /oci-harvester/setup-oci.sh /oci-harvester/harvest.sh /oci-harvester/compartments.sh && \
 ln -s /oci-harvester/setup-oci.sh /usr/local/bin/setup-oci && \
