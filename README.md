@@ -44,8 +44,8 @@ docker run -it --rm --mount type=bind,source="%cd%",target=/root/.oci --mount ty
 *Please note that running the setup-oci will create PEM files for the certificates in the mounted host directory.
 Please ensure that these files are stored safely. Subsequent running of the Docker image as defined above DOES NOT require running the setup-oci again, unless you have altered API Keys in your tenant related to this.*
 
-For inital setup of the OCI CLI credentials / certificate of if you need to re-configure, run the setup-oci command in the container shell.
-This will overwrite existing certificate and private key so make sure that is the intention.
+For inital setup of the OCI CLI credentials / certificate or if you need to re-configure, run the setup-oci command in the container shell.
+This will overwrite existing certificate and private key so please make sure that is the intention.
 ```
 setup-oci
 ```
@@ -61,10 +61,15 @@ compartments
 ```
 
 #### Configure Oracle Cloud Infrastructure Provider parallelism and services to discover
-
+Setting these environment variables are optional - default values will ensure to discover all services and use a parallelism of 1.
 ```
 export TERRAFORM_PROVIDER_OCI_SERVICES=core,load_balancer
 export TERRAFORM_PROVIDER_OCI_PARALLELISM=4
+```
+These environment variables can also be set in the tenancy.env file to set your own defaults if required by adding the following lines to that file:
+```
+TERRAFORM_PROVIDER_OCI_SERVICES=core,load_balancer
+TERRAFORM_PROVIDER_OCI_PARALLELISM=4
 ```
 
 #### Harvesting compartments in the tenant
@@ -85,7 +90,7 @@ ls -latr /harvested
 #### Using the harvested Terraform configuration and state
 From within the bash shell in the interactive modus, you can use terraform commands to perform relevant actions:
 ```
-cd /harvest/acompartmentname
+cd /harvested/acompartmentname
 vi load_balancer.tf
 terraform plan
 ```
