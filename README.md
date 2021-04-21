@@ -51,7 +51,7 @@ setup-oci
 ```
 Running the script will show the configuration created including the public key in PEM format.
 That content must be added as public authentication key for the given user:
-1. Log in to the Oracle Cloud using a browser (https://console.eu-frankfurt-1.oraclecloud.com)
+1. Log in to the Oracle Cloud using a browser (e.g. https://console.eu-frankfurt-1.oraclecloud.com - where eu-frankfurt-1 is your OCI_REGION (https://docs.oracle.com/en-us/iaas/Content/General/Concepts/regions.htm))
 2. Navigate to Profile -> <user>, then select Resources -> API Keys and Add Public Key.
 3. Paste the public key in PEM format and push Add button.
 
