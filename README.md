@@ -82,6 +82,14 @@ harvest
 ls -latr /harvested
 ```
 
+#### Using the harvested Terraform configuration and state
+From within the bash shell in the interactive modus, you can use terraform commands to perform relevant actions:
+```
+cd /harvest/acompartmentname
+vi load_balancer.tf
+terraform plan
+```
+
 ## Storing the harvested Terraform files in Oracle Object Storage
 This will only be available when using the upcoming Oracle Linux based Container Image.
 The tag will be ol (joranlager/oci-harvester:ol)
