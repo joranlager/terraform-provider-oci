@@ -60,6 +60,13 @@ That content must be added as public authentication key for the given user:
 compartments
 ```
 
+#### Configure Oracle Cloud Infrastructure Provider parallelism and services to discover
+
+```
+export TERRAFORM_PROVIDER_OCI_SERVICES=core,load_balancer
+export TERRAFORM_PROVIDER_OCI_PARALLELISM=4
+```
+
 #### Harvesting compartments in the tenant
 Please note that OCIDs and compartment names can be used interchangeably.
 
