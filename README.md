@@ -75,9 +75,9 @@ harvest
 ls -latr /harvested
 ```
 
-## Storing the generated diagrams in Oracle Object Storage
-This will only be available when using the Oracle Linux 7 based Docker image.
-The tag is ol7.
+## Storing the harvested Terraform files in Oracle Object Storage
+This will only be available when using the upcoming Oracle Linux based Container Image.
+The tag will be ol (joranlager/oci-harvester:ol)
 
 ```
 oci os bucket create --name bucket-terraform --compartment-id ocid1.compartment.oc1..aaaaaaaanywgss2v63u7mjiu4rb2ea
