@@ -16,7 +16,7 @@ USER root
 ARG TERRAFORM_VERSION=0.12.13
 ARG OCI_PROVIDER_VERSION=4.22.0
 
-RUN apk --update --no-cache add nodejs npm curl bash jq openssl curl && \
+RUN apk --update --no-cache add nodejs npm curl bash jq openssl && \
 npm install -production oci-common oci-identity
 
 RUN mkdir /terraform && \

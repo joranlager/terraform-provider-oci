@@ -79,5 +79,3 @@ else
     fi
   done  
 fi
-  
-cd - > /dev/null
