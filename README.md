@@ -1,5 +1,7 @@
 # Oracle OCI Harvester - oci-harvester
 
+This Container Image is based on Alpine and contains Node.js, OCI npm packages, Terraform and the Oracle Cloud Infrastructure (Terraform) Provider along with some basic (bash) helper scripts.
+
 ## Getting the oci-harvester Container Image
 
 ### Pulling the oci-harvester Container Image
@@ -11,7 +13,7 @@ docker pull joranlager/oci-harvester
 
 ## Running the oci-harvester Container Image
 
-### Create the directory to contain state and diagrams for the given tenant
+### Create the directory to contain the Terraform configuration and state files for the given tenant's compartments
 ```
 mkdir -p ~/oci-harvester/mytenancy/harvested
 ```

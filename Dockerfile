@@ -1,6 +1,6 @@
 # oci-harvester DOCKERFILE
 # ----------------------------
-# This Dockerfile creates a Docker image using Alpine, Nodejs, OCI npm packages and Terraform.
+# This Dockerfile creates a Docker image using Alpine, Node.js, OCI npm packages, Terraform and the Oracle Cloud Infrastructure (Terraform) Provider.
 #
 # HOW TO BUILD THIS IMAGE
 # -----------------------
