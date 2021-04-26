@@ -1,6 +1,6 @@
 # Oracle OCI Harvester - oci-harvester
 
-This Container Image is based on Alpine and contains Node.js, OCI npm packages, Terraform and the Oracle Cloud Infrastructure (Terraform) Provider along with some basic (bash) helper scripts.
+This Container Image is based on Alpine and contains Node.js, [OCI npm packages](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/typescriptsdk.htm), Terraform and the [Oracle Cloud Infrastructure (Terraform) Provider](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/terraform.htm) along with some basic (bash) helper scripts.
 
 ## Getting the oci-harvester Container Image
 
