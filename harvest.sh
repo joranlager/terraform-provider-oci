@@ -3,12 +3,13 @@
 #https://registry.terraform.io/providers/hashicorp/oci/latest/docs/guides/resource_discovery#supported-resources
 cd /harvested > /dev/null
 
+node /oci-harvester/compartments.js > compartments.json
+
 # If no arguments are given, get the names of all compartments and iterate on them:
 if [ $# -eq 0 ]
 then
   numcompartments=0
 
-  node /oci-harvester/compartments.js > compartments.json
   numcompartments=$(cat compartments.json | jq '.[].value | .name' | wc -l)
 
   echo Found $numcompartments compartments
