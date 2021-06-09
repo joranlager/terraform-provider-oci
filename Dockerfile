@@ -14,7 +14,7 @@ MAINTAINER joran.lager@oracle.com
 USER root
 
 ARG TERRAFORM_VERSION=0.14.11
-ARG OCI_PROVIDER_VERSION=4.25.0
+ARG OCI_PROVIDER_VERSION=4.29.0
 
 RUN apk --update --no-cache add nodejs npm curl bash jq openssl && \
 npm install -production oci-common oci-identity
