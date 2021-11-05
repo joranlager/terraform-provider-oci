@@ -7,17 +7,16 @@
 # docker build -f Dockerfile -t joranlager/oci-harvester:latest .
 # docker push joranlager/oci-harvester:latest
 
-FROM alpine
+FROM alpine:3.13.6
 
 MAINTAINER joran.lager@oracle.com
 
 USER root
 
 ARG TERRAFORM_VERSION=0.14.11
-ARG OCI_PROVIDER_VERSION=4.29.0
+ARG OCI_PROVIDER_VERSION=4.51.0
 
-RUN apk --update --no-cache add nodejs npm curl bash jq openssl && \
-npm install -production oci-common oci-identity
+RUN apk --update --no-cache add nodejs npm curl bash jq openssl
 
 RUN mkdir /terraform && \
     cd /terraform && \
@@ -28,7 +27,12 @@ RUN mkdir /terraform && \
     unzip terraform-provider-oci_${OCI_PROVIDER_VERSION}_linux_amd64.zip && \
     rm terraform-provider-oci_${OCI_PROVIDER_VERSION}_linux_amd64.zip && \
     ln -s $(ls /terraform/terraform) /usr/local/bin/terraform && \
-    ln -s $(ls /terraform/terraform-provider-oci*) /usr/local/bin/terraform-provider-oci
+    ln -s $(ls /terraform/terraform-provider-oci*) /usr/local/bin/terraform-provider-oci && \
+    mkdir /oci-harvester
+
+WORKDIR /oci-harvester
+
+RUN npm install -production oci-common oci-identity
 
 COPY setup-oci.sh harvest.sh compartments.js compartments.sh /oci-harvester/
 
