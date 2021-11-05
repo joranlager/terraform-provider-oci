@@ -10,6 +10,9 @@ This Container Image is based on Alpine and contains Node.js, [OCI npm packages]
 ```
 docker pull joranlager/oci-harvester
 ```
+```
+podman pull joranlager/oci-harvester
+```
 
 ## Running the oci-harvester Container Image
 
@@ -34,6 +37,10 @@ EOF
 ```
 cd ~/oci-harvester/mytenancy
 docker run -it --rm --mount type=bind,source="$(pwd)",target=/root/.oci --mount type=bind,source="$(pwd)/harvested",target=/harvested --env-file tenancy.env joranlager/oci-harvester /bin/bash
+```
+```
+cd ~/oci-harvester/mytenancy
+podman run -it --rm --mount type=bind,source="$(pwd)",target=/root/.oci --mount type=bind,source="$(pwd)/harvested",target=/harvested --env-file tenancy.env joranlager/oci-harvester /bin/bash
 ```
 
 #### Running on Windows based host
@@ -114,4 +121,8 @@ oci os object bulk-upload -ns nose -bn bucket-terraform --src-dir /harvested
 ```
 docker build -f Dockerfile -t joranlager/oci-harvester:latest .
 docker push joranlager/oci-harvester:latest
+```
+```
+podman build -f Dockerfile -t joranlager/oci-harvester:latest .
+podman push joranlager/oci-harvester:latest
 ```
