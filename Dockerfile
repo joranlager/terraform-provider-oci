@@ -13,7 +13,7 @@ MAINTAINER joran.lager@oracle.com
 
 USER root
 
-ARG TERRAFORM_VERSION=0.14.11
+ARG TERRAFORM_VERSION=1.0.10
 ARG OCI_PROVIDER_VERSION=4.51.0
 
 RUN apk --update --no-cache add nodejs npm curl bash jq openssl
