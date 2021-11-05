@@ -1,30 +1,30 @@
-# Oracle OCI Harvester - oci-harvester
+# Containerized Terraform Provider for OCI - terraform-provider-oci
 
 This Container Image is based on Alpine and contains Node.js, [OCI npm packages](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/typescriptsdk.htm), Terraform and the [Oracle Cloud Infrastructure (Terraform) Provider](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/terraform.htm) along with some basic (bash) helper scripts.
 This Container Image is using Terraform version 1.0.10 and OCI Provider version 4.51.0.
 
-## Getting the oci-harvester Container Image
+## Getting the terraform-provider-oci Container Image
 
-### Pulling the oci-harvester Container Image
+### Pulling the terraform-provider-oci Container Image
 *Please note that it is recommended to pull the Container Image every now and then to make sure to get the latest fixes and features.*
 
 ```
-docker pull joranlager/oci-harvester
+docker pull joranlager/terraform-provider-oci
 ```
 ```
-podman pull joranlager/oci-harvester
+podman pull joranlager/terraform-provider-oci
 ```
 
-## Running the oci-harvester Container Image
+## Running the terraform-provider-oci Container Image
 
 ### Create the directory to contain the Terraform configuration and state files for the given tenant's compartments
 ```
-mkdir -p ~/oci-harvester/mytenancy/harvested
+mkdir -p ~/terraform-provider-oci/mytenancy/harvested
 ```
 
 ### Create the file tenancy.env
 ```
-cat << EOF > ~/oci-harvester/mytenancy/tenancy.env
+cat << EOF > ~/terraform-provider-oci/mytenancy/tenancy.env
 OCI_TENANCY_NAME=nose
 OCI_TENANCY_OCID=ocid1.tenancy.oc1..aaaaaaaaflk52fndnkps3byra
 OCI_USER_OCID=ocid1.user.oc1..aaaaaaaanufsmqwgjxpxhda
@@ -32,22 +32,22 @@ OCI_REGION=eu-frankfurt-1
 EOF
 ```
 
-### Run the oci-harvester in interactive modus
+### Run the terraform-provider-oci in interactive modus
 
 #### Running on Unix / Linux based host
 ```
-cd ~/oci-harvester/mytenancy
-docker run -it --rm --mount type=bind,source="$(pwd)",target=/root/.oci --mount type=bind,source="$(pwd)/harvested",target=/harvested --env-file tenancy.env joranlager/oci-harvester /bin/bash
+cd ~/terraform-provider-oci/mytenancy
+docker run -it --rm --mount type=bind,source="$(pwd)",target=/root/.oci --mount type=bind,source="$(pwd)/harvested",target=/harvested --env-file tenancy.env joranlager/terraform-provider-oci /bin/bash
 ```
 ```
-cd ~/oci-harvester/mytenancy
-podman run -it --rm --mount type=bind,source="$(pwd)",target=/root/.oci --mount type=bind,source="$(pwd)/harvested",target=/harvested --env-file tenancy.env joranlager/oci-harvester /bin/bash
+cd ~/terraform-provider-oci/mytenancy
+podman run -it --rm --mount type=bind,source="$(pwd)",target=/root/.oci --mount type=bind,source="$(pwd)/harvested",target=/harvested --env-file tenancy.env joranlager/terraform-provider-oci /bin/bash
 ```
 
 #### Running on Windows based host
 ```
-cd oci-harvester\mytenancy
-docker run -it --rm --mount type=bind,source="%cd%",target=/root/.oci --mount type=bind,source="%cd%\harvested",target=/harvested --env-file tenancy.env joranlager/oci-harvester /bin/bash
+cd terraform-provider-oci\mytenancy
+docker run -it --rm --mount type=bind,source="%cd%",target=/root/.oci --mount type=bind,source="%cd%\harvested",target=/harvested --env-file tenancy.env joranlager/terraform-provider-oci /bin/bash
 ```
 
 #### Creating and setting the required certificate and key to access OCI
@@ -107,7 +107,7 @@ terraform plan
 
 ## Storing the harvested Terraform files in Oracle Object Storage
 This will only be available when using the upcoming Oracle Linux based Container Image.
-The tag will be ol (joranlager/oci-harvester:ol)
+The tag will be ol (joranlager/terraform-provider-oci:ol)
 
 ```
 oci os bucket create --name bucket-terraform --compartment-id ocid1.compartment.oc1..aaaaaaaanywgss2v63u7mjiu4rb2ea
@@ -117,10 +117,10 @@ oci os object bulk-upload -ns nose -bn bucket-terraform --src-dir /harvested
 ## Building the Docker image
 
 ```
-docker build -f Dockerfile -t joranlager/oci-harvester:latest .
-docker push joranlager/oci-harvester:latest
+docker build -f Dockerfile -t joranlager/terraform-provider-oci:latest .
+docker push joranlager/terraform-provider-oci:latest
 ```
 ```
-podman build -f Dockerfile -t joranlager/oci-harvester:latest .
-podman push joranlager/oci-harvester:latest
+podman build -f Dockerfile -t joranlager/terraform-provider-oci:latest .
+podman push joranlager/terraform-provider-oci:latest
 ```

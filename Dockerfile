@@ -1,11 +1,11 @@
-# oci-harvester DOCKERFILE
+# terraform-provider-oci DOCKERFILE
 # ----------------------------
 # This Dockerfile creates a Docker image using Alpine, Node.js, OCI npm packages, Terraform and the Oracle Cloud Infrastructure (Terraform) Provider.
 #
 # HOW TO BUILD THIS IMAGE
 # -----------------------
-# docker build -f Dockerfile -t joranlager/oci-harvester:latest .
-# docker push joranlager/oci-harvester:latest
+# docker build -f Dockerfile -t joranlager/terraform-provider-oci:latest .
+# docker push joranlager/terraform-provider-oci:latest
 
 FROM alpine:3.13.6
 
@@ -28,23 +28,23 @@ RUN mkdir /terraform && \
     rm terraform-provider-oci_${OCI_PROVIDER_VERSION}_linux_amd64.zip && \
     ln -s $(ls /terraform/terraform) /usr/local/bin/terraform && \
     ln -s $(ls /terraform/terraform-provider-oci*) /usr/local/bin/terraform-provider-oci && \
-    mkdir /oci-harvester
+    mkdir /terraform-provider-oci
 
-WORKDIR /oci-harvester
+WORKDIR /terraform-provider-oci
 
 RUN npm install -production oci-common oci-identity
 
-COPY setup-oci.sh harvest.sh compartments.js compartments.sh /oci-harvester/
+COPY setup-oci.sh harvest.sh compartments.js compartments.sh /terraform-provider-oci/
 
-RUN chmod 755 /oci-harvester/setup-oci.sh /oci-harvester/harvest.sh /oci-harvester/compartments.sh && \
-ln -s /oci-harvester/setup-oci.sh /usr/local/bin/setup-oci && \
-ln -s /oci-harvester/harvest.sh /usr/local/bin/harvest && \
-ln -s /oci-harvester/compartments.sh /usr/local/bin/compartments && \
+RUN chmod 755 /terraform-provider-oci/setup-oci.sh /terraform-provider-oci/harvest.sh /terraform-provider-oci/compartments.sh && \
+ln -s /terraform-provider-oci/setup-oci.sh /usr/local/bin/setup-oci && \
+ln -s /terraform-provider-oci/harvest.sh /usr/local/bin/harvest && \
+ln -s /terraform-provider-oci/compartments.sh /usr/local/bin/compartments && \
 mkdir /harvested
 
 ENV TERRAFORM_PROVIDER_OCI_SERVICES=
 ENV TERRAFORM_PROVIDER_OCI_PARALLELISM=1
 
-WORKDIR /oci-harvester
+WORKDIR /terraform-provider-oci
 
 CMD ["bash"]
