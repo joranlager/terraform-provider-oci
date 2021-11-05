@@ -84,9 +84,6 @@ TERRAFORM_PROVIDER_OCI_PARALLELISM=4
 
 #### Harvesting compartments in the tenant
 Please note that OCIDs and compartment names can be used interchangeably.
-Also, please note that the version of terraform syntax to generate for configurations is v0.12 and the state file will be written in v0.12 only.
-The Terraform version 0.15 is a major release and it contains breaking changes (due to deprecations concluding in that release).
-The most current Terraform version to be used will then be version 0.14.x.
 
 Harvest Terraform configuration and state for given compartments in a tenancy by name separated by space:
 ```
