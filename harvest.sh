@@ -3,7 +3,7 @@
 #https://registry.terraform.io/providers/hashicorp/oci/latest/docs/guides/resource_discovery#supported-resources
 cd /harvested > /dev/null
 
-node /oci-harvester/compartments.js > compartments.json
+node /terraform-provider-oci/compartments.js > compartments.json
 
 # If no arguments are given, get the names of all compartments and iterate on them:
 if [ $# -eq 0 ]
