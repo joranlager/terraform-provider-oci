@@ -1,7 +1,7 @@
 #!/bin/bash
 #https://www.terraform.io/docs/providers/oci/guides/resource_discovery.html
 #https://registry.terraform.io/providers/hashicorp/oci/latest/docs/guides/resource_discovery#supported-resources
-cd /harvested > /dev/null
+#cd /harvested > /dev/null
 
 node /terraform-provider-oci/compartments.js > compartments.json
 
@@ -25,7 +25,7 @@ then
         cd - > /dev/null
       else
         cd - > /dev/null
-        rm -rf $i
+        #rm -rf $i
       fi
       echo DONE PROCESSING COMPARTMENT $i
     else
@@ -49,7 +49,7 @@ else
           cd - > /dev/null
         else
           cd - > /dev/null
-          rm -rf $i
+          #rm -rf $i
         fi
       else
         echo PROCESSING COMPARTMENT $i ...
@@ -60,7 +60,7 @@ else
           cd - > /dev/null
         else
           cd - > /dev/null
-          rm -rf $i
+          #rm -rf $i
         fi
       fi
 
