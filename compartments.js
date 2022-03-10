@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2020, 2021 Oracle and/or its affiliates.  All rights reserved.
+ * Copyright (c) 2020, 2022 Oracle and/or its affiliates.  All rights reserved.
  * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 
@@ -31,24 +31,33 @@ const tenancyId = {
   // Create a service client
     const client = new identity.IdentityClient({ authenticationDetailsProvider: provider });
 
+    // Create a request and dependent object(s).
+    const getTenancyRequest = identity.requests.GetTenancyRequest = {
+      tenancyId: tenancyId.tenancyId
+    };
+
+    // Send request to the Client.
+    const getTenancyResponse = await client.getTenancy(getTenancyRequest);
+
+    var rootCompartment = {value: {
+        compartmentId: getTenancyResponse.tenancy.compartmentId,
+        id: tenancyId.tenancyId,
+        name: getTenancyResponse.tenancy.name,
+        description: getTenancyResponse.tenancy.description,
+        freeformTags: getTenancyResponse.tenancy.freeformTags,
+        definedTags: getTenancyResponse.tenancy.definedTags,
+        lifecycleState: getTenancyResponse.tenancy.lifecycleState
+      }
+    }
+
     // Eager load: https://github.com/oracle/oci-typescript-sdk/blob/master/examples/javascript/pagination.js
     const listCompartmentsResponse = await common.paginatedRecordsWithLimit(listCompartmentsRequest, req =>
       client.listCompartments(listCompartmentsRequest)
     );
 
-    var rootCompartment = {value: {
-        id: tenancyId.tenancyId,
-        name: "ROOT",
-        description: "ROOT",
-        freeformTags: {},
-        definedTags: {},
-        lifecycleState: "ACTIVE"
-      }
-    }
-
     listCompartmentsResponse.push(rootCompartment)
 
-  console.log(JSON.stringify(listCompartmentsResponse, null, 2));
+    console.log(JSON.stringify(listCompartmentsResponse, null, 2));
 
   } catch (error) {
     console.log("listCompartments Failed with error  " + error);

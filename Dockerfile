@@ -34,7 +34,7 @@ WORKDIR /terraform-provider-oci
 
 RUN npm install -production oci-common oci-identity
 
-COPY setup-oci.sh harvest.sh compartments.js compartments.sh /terraform-provider-oci/
+COPY setup-oci.sh harvest.sh compartments.js tenancy.js compartments.sh /terraform-provider-oci/
 
 RUN chmod 755 /terraform-provider-oci/setup-oci.sh /terraform-provider-oci/harvest.sh /terraform-provider-oci/compartments.sh && \
 ln -s /terraform-provider-oci/setup-oci.sh /usr/local/bin/setup-oci && \

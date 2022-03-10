@@ -4,6 +4,9 @@
 #cd /harvested > /dev/null
 
 node /terraform-provider-oci/compartments.js > compartments.json
+node /terraform-provider-oci/tenancy.js > tenancy.json
+tenancy_name=$(jq .tenancy.name tenancy.json|tr -d '"')
+tenancy_ocid=$(jq .tenancy.id tenancy.json|tr -d '"')
 
 # If no arguments are given, get the names of all compartments and iterate on them:
 if [ $# -eq 0 ]
@@ -20,7 +23,11 @@ then
       echo PROCESSING COMPARTMENT $i ...
       mkdir -p $i
       cd $i
-      terraform-provider-oci -parallelism=$TERRAFORM_PROVIDER_OCI_PARALLELISM -command=export -services=$TERRAFORM_PROVIDER_OCI_SERVICES -compartment_name=$i -generate_state=true -output_path=.
+      if [ $i != $tenancy_name ]; then
+        terraform-provider-oci -parallelism=$TERRAFORM_PROVIDER_OCI_PARALLELISM -command=export -services=$TERRAFORM_PROVIDER_OCI_SERVICES -compartment_name=$i -generate_state=true -output_path=.
+      else
+        terraform-provider-oci -parallelism=$TERRAFORM_PROVIDER_OCI_PARALLELISM -command=export -services=$TERRAFORM_PROVIDER_OCI_SERVICES -compartment_id=$tenancy_ocid -generate_state=true -output_path=.
+      fi
       if [ -f terraform.tfstate ]; then 
         cd - > /dev/null
       else
@@ -55,7 +62,11 @@ else
         echo PROCESSING COMPARTMENT $i ...
         mkdir -p $i
         cd $i
-        terraform-provider-oci -parallelism=$TERRAFORM_PROVIDER_OCI_PARALLELISM -command=export -services=$TERRAFORM_PROVIDER_OCI_SERVICES -compartment_name=$i -generate_state=true -output_path=.
+        if [ $i != $tenancy_name ]; then
+          terraform-provider-oci -parallelism=$TERRAFORM_PROVIDER_OCI_PARALLELISM -command=export -services=$TERRAFORM_PROVIDER_OCI_SERVICES -compartment_name=$i -generate_state=true -output_path=.
+        else
+          terraform-provider-oci -parallelism=$TERRAFORM_PROVIDER_OCI_PARALLELISM -command=export -services=$TERRAFORM_PROVIDER_OCI_SERVICES -compartment_id=$tenancy_ocid -generate_state=true -output_path=.
+        fi
         if [ -f terraform.tfstate ]; then 
           cd - > /dev/null
         else
