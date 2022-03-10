@@ -25,16 +25,30 @@ const tenancyId = {
       sortBy: identity.requests.ListCompartmentsRequest.SortBy.Timecreated,
       sortOrder: identity.requests.ListCompartmentsRequest.SortOrder.Asc,
       //lifecycleState: identity.models.Compartment.LifecycleState.Deleted
+      lifecycleState: identity.models.Compartment.LifecycleState.Active
     };
 
-	// Create a service client
+  // Create a service client
     const client = new identity.IdentityClient({ authenticationDetailsProvider: provider });
 
     // Eager load: https://github.com/oracle/oci-typescript-sdk/blob/master/examples/javascript/pagination.js
     const listCompartmentsResponse = await common.paginatedRecordsWithLimit(listCompartmentsRequest, req =>
       client.listCompartments(listCompartmentsRequest)
     );
-	console.log(JSON.stringify(listCompartmentsResponse));
+
+    var rootCompartment = {value: {
+        id: tenancyId.tenancyId,
+        name: "ROOT",
+        description: "ROOT",
+        freeformTags: {},
+        definedTags: {},
+        lifecycleState: "ACTIVE"
+      }
+    }
+
+    listCompartmentsResponse.push(rootCompartment)
+
+  console.log(JSON.stringify(listCompartmentsResponse, null, 2));
 
   } catch (error) {
     console.log("listCompartments Failed with error  " + error);

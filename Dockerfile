@@ -7,14 +7,14 @@
 # docker build -f Dockerfile -t joranlager/terraform-provider-oci:latest .
 # docker push joranlager/terraform-provider-oci:latest
 
-FROM alpine:3.13.6
+FROM alpine:3.15.0
 
 MAINTAINER joran.lager@oracle.com
 
 USER root
 
-ARG TERRAFORM_VERSION=1.0.10
-ARG OCI_PROVIDER_VERSION=4.54.0
+ARG TERRAFORM_VERSION=1.1.7
+ARG OCI_PROVIDER_VERSION=4.67.0
 
 RUN apk --update --no-cache add nodejs npm curl bash jq openssl
 
